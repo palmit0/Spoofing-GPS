@@ -25,11 +25,11 @@ Le projet GPS-SDR-SIM est un projet open source qui génère des signaux GPS. Po
 
 Voici la mise en place sur un système Ubuntu :
 
-$ git clone git@github.com:osqzss/gps-sdr-sim.git
-
-$ cd gps-sdr-sim
-
-$ gcc gpssim.c -lm -fopenmp -o gps-sdr-sim
+    $ git clone git@github.com:osqzss/gps-sdr-sim.git
+    
+    $ cd gps-sdr-sim
+    
+    $ gcc gpssim.c -lm -fopenmp -o gps-sdr-sim
 
   
 
@@ -52,25 +52,26 @@ Lors de l’attaque il indispensable d’avoir le fichier du jour !
 
 Voici un petit script utile, cependant, ce script se base sur l’horodatage de votre ordinateur, veuillez vérifier que celui-ci soit à jour !
 
-#!/bin/sh
-
-day=$(date +%j)
-
-year=$(date +%Y)
-
-yr=$(date +%y)
-
-wget "ftp://cddis.gsfc.nasa.gov/gnss/data/daily/$year""/brdc/brdc""$day""0.$yr""n.Z"
-
-uncompress "brdc""$day""0.$yr""n.Z"
-
-echo "brdc""$day""0.$yr""n.Z"
+    #!/bin/sh
+    
+    day=$(date +%j)
+    
+    year=$(date +%Y)
+    
+    yr=$(date +%y)
+    
+    wget "ftp://cddis.gsfc.nasa.gov/gnss/data/daily/$year""/brdc/brdc""$day""0.$yr""n.Z"
+    
+    uncompress "brdc""$day""0.$yr""n.Z"
+    
+    echo "brdc""$day""0.$yr""n.Z"
 
 Pour générer des échantillons de signaux GPS dynamiquement avec un trajet prédéfini, il suffit d'utiliser un fichier NMEA, c’est un fichier texte qui contient des informations de format NMEA.
 
 Je vous invite à lire l’annexe Les fichiers NMEA et Tutoriel - Génération fichier NMEA.
 
-$./gps-sdr-sim -b 8 -e brdcDDD0.YYn -g triumphv3.txt
+    $./gps-sdr-sim -b 8 -e brdcDDD0.YYn -g triumphv3.txt
+   **Options:**
 
 -   -b Format de données I/Q, le HackRF utilise le format 8.
     
@@ -85,13 +86,13 @@ Une fois que les échantillons de signaux sont générés, un fichier gpssim.bin
 
 Transmission à l’antenne du HackRF ONE :
 
-$hackrf_transfer -t gpssim.bin -f 157542000000 -s 2600000 -a 1 -x 47 -p 1 -R
+    $hackrf_transfer -t gpssim.bin -f 157542000000 -s 2600000 -a 1 -x 47 -p 1 -R
 
-Options:
+**Options:**
 
--   - t nom de fichier.
+- -t nom de fichier.
     
--   - f Fréquence en Hz (ici GPS donc 157542000000)
+-   -f Fréquence en Hz (ici GPS donc 157542000000)
     
 -   -s Fréquence d'échantillonnage, fréquence d'échantillonnage en Hz (ne pas changer)
     
